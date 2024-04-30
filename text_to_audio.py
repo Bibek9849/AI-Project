@@ -1,4 +1,5 @@
 import os
+import platform
 
 try:
     from gtts import gTTS
@@ -8,10 +9,13 @@ except ImportError:
 
 def tts_online(text):
     try:
-        language = 'en'
+        language = 'en-us'  # Set language to American English
         tts = gTTS(text=text, lang=language, slow=False)
         tts.save("output.mp3")
-        os.system("start output.mp3") 
+        if platform.system() == 'Windows':
+            os.system("start output.mp3")  # For Windows
+        elif platform.system() == 'Linux':
+            os.system("xdg-open output.mp3")  # For Linux
         return True  
     except Exception as e:
         print("online:", e)
@@ -24,13 +28,16 @@ def tts_offline(text):
         engine.setProperty('rate', 150)   
         engine.setProperty('volume', 0.9) 
         engine.save_to_file(text, 'output.mp3')
-        engine.runAndWait()
+        if platform.system() == 'Windows':
+            os.startfile('output.mp3')  # For Windows
+        elif platform.system() == 'Linux':
+            os.system("xdg-open output.mp3")  # For Linux
         return True 
     except Exception as e:
         print("offline:", e)
         return False  
 
-text = "Rohan Chaulagain is gay"
+text = "Hello Bibek, How are you?"
 
 if gtts_available:
     if not tts_online(text):
