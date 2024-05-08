@@ -1,4 +1,5 @@
-venv
+venv/
+enterprise_libraries/
 output.mp3
 requirements.txt
 

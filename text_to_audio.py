@@ -37,7 +37,8 @@ def tts_offline(text):
         print("offline:", e)
         return False  
 
-text = "Hello Bibek, How are you?"
+# Text to convert to speech
+text = "WHAT IS YOUR NAME"
 
 if gtts_available:
     if not tts_online(text):
